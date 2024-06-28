@@ -1,5 +1,5 @@
 
-# COM3505 Lab Assessment 2
+# ESP32 Smartwatch Controlled Lighting
 
 This project controls the lighting of the Adafruit DotStar Digital LED Strip which is connected to the ESP32 Feather Board, and is remotely controlled using a LilyGO T-Watch 2020 V3 smartwatch.
 
