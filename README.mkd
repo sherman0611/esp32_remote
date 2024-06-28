@@ -1,0 +1,78 @@
+
+# COM3505 Lab Assessment 2
+
+This project controls the lighting of the Adafruit DotStar Digital LED Strip which is connected to the ESP32 Feather Board, and is remotely controlled using a LilyGO T-Watch 2020 V3 smartwatch.
+
+**Features**
+
+- ESP32 Feather Board: 
+    - Serve as server using Bluetooth Low Energy (BLE) to receive data and control LED Light Strip
+- LilyGO T-Watch 2020 V3 smartwatch: 
+    - "Power" and "Cycle" button to control LED lighting
+    - Serve as client using BLE to send data to server
+    - Connect to WiFi and retrieve current time online
+
+**Video showcase**
+
+[Video showcase](https://youtube.com/shorts/8GZYVhhmTeM?feature=share)
+
+**Hardware**
+
+The Adafruit DotStar Digital LED Strip is connected to the ESP32 Feather Board as shown below:
+
+<a href="hardware.JPEG"><img src="hardware.JPEG" alt="Device hardware setup" width="50%" height="50%"></a>
+
+- Red wire to 3V
+- Black wire to GND
+- Green wire to A5
+- Yellow wire to SCK
+
+**Code**
+
+There are two folders in the ProjectThing folder:
+- iot_esp32 for ESP32 Feather Board
+- iot_watch for LilyGO T-Watch 2020 V3
+
+ProjectThing.ino is not used.
+
+Open these separate folders in VSCode and PlatformIO should configure the environment for the respective device automatically, then compile main.cpp and upload code to device.
+
+Service UUID and Characteristic UUID are defined at line 26-27 in main.cpp in iot_esp32 and line 37-38 in main.cpp in iot_watch. These have to be the same in both codes.
+
+**ESP32 Feather Board**
+
+Library dependencies
+- BLEDevice
+- BLEUtils
+- BLEServer
+- Adafruit_DotStar
+
+Note that there are commented codes for OTA updates. These are not compiled since the board has insufficient flash memory when OTA is included in the code.
+
+The board sets up itself as a server using BLE and will continue to advertise itself unless a device is connected to it.
+
+It controls the LED by reading the value received from the client.
+- 0: Turn all lights off
+- 1: Set all lights to white
+- 2: Cycle lights between red and green
+
+**LilyGO T-Watch 2020 V3**
+
+Library dependencies
+- BLEDevice
+- BLEUtils
+- BLEServer
+- WiFi
+
+Note that the device only retrieves the time from pool.ntp.org once then disconnects from WiFi. The time can be retrieved every loop to update the display, however since WiFi disconnects very frequently and causes the device to restart I am using the above approach. The WiFi ssid and password are defined in line 15-16.
+
+The watch sets itself as a client using BLE and will continue to search for a device with the same Service UUID and Characteristic UUID defined, which it then attempts to connect to.
+
+The scrollable power button on the right of the watch can be pressed to turn the watch on and off.
+
+There are 4 components on the screen:
+- Time retrieved at setup
+- "Cycle" button to send "2" to the server
+- "Power" toggle button to send "0" and "1" to the server
+- Battery display to show percentage and if device is charging
+    
