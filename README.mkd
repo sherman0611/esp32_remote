@@ -33,8 +33,6 @@ There are two folders in the ProjectThing folder:
 - iot_esp32 for ESP32 Feather Board
 - iot_watch for LilyGO T-Watch 2020 V3
 
-ProjectThing.ino is not used.
-
 Open these separate folders in VSCode and PlatformIO should configure the environment for the respective device automatically, then compile main.cpp and upload code to device.
 
 Service UUID and Characteristic UUID are defined at line 26-27 in main.cpp in iot_esp32 and line 37-38 in main.cpp in iot_watch. These have to be the same in both codes.
