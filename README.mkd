@@ -57,6 +57,7 @@ It controls the LED by reading the value received from the client.
 **LilyGO T-Watch 2020 V3**
 
 Library dependencies
+- https://github.com/Xinyuan-LilyGO/TTGO_TWatch_Library
 - BLEDevice
 - BLEUtils
 - BLEServer
